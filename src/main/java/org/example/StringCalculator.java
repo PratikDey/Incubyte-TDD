@@ -3,8 +3,13 @@ package org.example;
 public class StringCalculator {
     public int add(String numbers) {
         if(numbers == null || numbers.isEmpty()) {
-            return 1;
+            return 0;
         }
-        return Integer.parseInt(numbers);
+        String[] parts = numbers.split(",");
+        int sum = 0;
+        for(String p: parts) {
+            sum += Integer.parseInt(p);
+        }
+        return sum;
     }
 }
