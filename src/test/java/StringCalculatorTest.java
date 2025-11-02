@@ -49,6 +49,7 @@ public class StringCalculatorTest {
     }
     @Test
     public void ignoreEmptyTokens() {
-        
+        StringCalculator calc = new StringCalculator();
+        assertEquals(3, calc.add("1,2,"));
     }
 }

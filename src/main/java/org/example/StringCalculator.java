@@ -13,8 +13,12 @@ public class StringCalculator {
 
         if(numbers.startsWith("//")) {
             int nl = numbers.indexOf('\n');
+            if (nl == -1) {
+                throw new IllegalArgumentException("Invalid input: missing newline after custom delimiter");
+            }
             String rawDelimiter = numbers.substring(2, nl);
-            delimitersRegex = Pattern.quote(rawDelimiter);
+            String quoted = Pattern.quote(rawDelimiter);
+            delimitersRegex = quoted;
             numbers = numbers.substring(nl + 1);
         }
 
