@@ -9,6 +9,7 @@ public class StringCalculator {
         if(numbers == null || numbers.isEmpty()) {
             return 0;
         }
+        boolean mul = false;
         String delimitersRegex = "[,\\n]";
 
         if(numbers.startsWith("//")) {
@@ -17,6 +18,9 @@ public class StringCalculator {
                 throw new IllegalArgumentException("Invalid input: missing newline after custom delimiter");
             }
             String rawDelimiter = numbers.substring(2, nl);
+            if(rawDelimiter.equals("*")) {
+                mul = true;
+            }
             String quoted = Pattern.quote(rawDelimiter);
             delimitersRegex = quoted;
             numbers = numbers.substring(nl + 1);
@@ -25,11 +29,15 @@ public class StringCalculator {
         String[] parts = numbers.split(delimitersRegex + "|[\\n,]");
 
         int sum = 0;
+        long multiply = 1;
         List<Integer> negatives = new ArrayList<>();
         for(String p: parts) {
             if(p.isEmpty() || p == null) continue;
             int n = Integer.parseInt(p);
             if(n < 0) negatives.add(n);
+            if(mul) {
+                multiply *= n;
+            }
             sum += n;
         }
 
@@ -41,6 +49,11 @@ public class StringCalculator {
             }
             throw new IllegalArgumentException("Negative numbers not allowed " + sb.toString());
         }
+
+        if(mul) {
+            return (int)multiply;
+        }
+
         return sum;
     }
 }

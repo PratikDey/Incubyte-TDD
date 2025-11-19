@@ -36,6 +36,11 @@ public class StringCalculatorTest {
         assertEquals(3, calc.add("//;\n1;2"));
     }
     @Test
+    public void customDelimiterWithAsterisk() {
+        StringCalculator calc = new StringCalculator();
+        assertEquals(6, calc.add("//*\n3*2"));
+    }
+    @Test
     public void negativeNumberThrowsException_single() {
         StringCalculator calc = new StringCalculator();
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> calc.add("1,-2,3"));
